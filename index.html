@@ -83,7 +83,7 @@
         <div class="grid sm:grid-cols-2 gap-4">
             <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">01</span><div><p class="font-bold">Pourquoi cette question</p><p class="text-slate-500 text-sm">Clichés, maths, profil S…</p></div></div>
             <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">02</span><div><p class="font-bold">Qui je suis</p><p class="text-slate-500 text-sm">Philo → formations & certifs → dev</p></div></div>
-            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">03</span><div><p class="font-bold">Mythes vs réalité du métier</p><p class="text-slate-500 text-sm">Génie, créativité, debug, doc…</p></div></div>
+            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">03</span><div><p class="font-bold">Mythes vs réalité du métier</p><p class="text-slate-500 text-sm">Sciences, maths, image du métier</p></div></div>
             <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">04</span><div><p class="font-bold">« Sans être bon en sciences »</p><p class="text-slate-500 text-sm">Ce qui compte vraiment</p></div></div>
             <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">05</span><div><p class="font-bold">Le métier aujourd'hui</p><p class="text-slate-500 text-sm">Next.js · Flutter · DevOps</p></div></div>
             <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">06</span><div><p class="font-bold">Mon chemin &amp; la passion</p><p class="text-slate-500 text-sm">Certifs, projets, persévérance</p></div></div>
@@ -103,7 +103,7 @@
             <div class="p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
                 <p class="text-3xl mb-4">🏫</p>
                 <p class="font-bold text-lg mb-2">Le mythe scolaire</p>
-                <p class="text-slate-400 leading-relaxed">« Le code, c'est pour les profils S, les bons en maths. » Une idée héritée du système éducatif, pas du terrain.</p>
+                <p class="text-slate-400 leading-relaxed">« Le code, c'est pour les profils scientifiques, les bons en maths. » Une idée héritée du système éducatif, pas du terrain.</p>
             </div>
             <div class="p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
                 <p class="text-3xl mb-4">😰</p>
@@ -160,34 +160,46 @@
     </div>
 </div>
 
-<!-- ─── SLIDE 5 · Mythes vs Réalité ──────────────────────────────── -->
+<!-- ─── SLIDE 5 · Mythes vs Réalité ───────────────────────────────── -->
 <div class="slide flex-col justify-center bg-[#0f172a] text-white px-10 lg:px-20">
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 40% at 90% 20%, rgba(249,115,22,.15) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 45% at 90% 15%, rgba(249,115,22,.12) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 10% 85%, rgba(30,64,175,.15) 0%, transparent 55%);"></div>
     <div class="relative z-10 max-w-5xl mx-auto w-full">
-        <p class="pill bg-white/10 text-slate-300 mb-8">03 · Mythes vs Réalité</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-10">Ce que l'on croit<br>vs ce qui est vrai</h2>
-        <div class="grid md:grid-cols-2 gap-5">
-            <div class="p-6 rounded-[1.5rem] bg-red-950/40 border border-red-900/40">
-                <p class="text-xs uppercase tracking-widest font-bold text-red-400 mb-3">Mythe</p>
-                <p class="font-bold text-lg">"Il faut être un génie des maths."</p>
-                <p class="text-slate-400 mt-2 text-sm">Dans le web/mobile, tu n'auras presque jamais besoin de maths compliquées.</p>
+        <p class="pill bg-white/10 text-slate-300 mb-5">03 · Mythes vs Réalité</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight">Être développeur sans être fort en sciences&nbsp;?</h2>
+        <p class="text-base sm:text-lg text-slate-200 mb-8 max-w-3xl leading-relaxed">
+            <span class="text-white font-semibold">Oui, c’est possible.</span> En web et mobile, tu n’as pas besoin d’un bagage scientifique lourd&nbsp;: tu as besoin de <span class="text-white font-semibold">logique</span>, de <span class="text-white font-semibold">pratique</span> et de <span class="text-white font-semibold">régularité</span>. Le reste s’apprend sur le terrain.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-3 mb-8">
+            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
+                <p class="font-bold text-sm sm:text-base">«&nbsp;Il faut exceller en maths.&nbsp;»</p>
             </div>
-            <div class="p-6 rounded-[1.5rem] bg-emerald-950/40 border border-emerald-900/40">
-                <p class="text-xs uppercase tracking-widest font-bold text-emerald-400 mb-3">Réalité</p>
-                <p class="font-bold text-lg">"C'est de la logique et de la méthode."</p>
-                <p class="text-slate-400 mt-2 text-sm">Décomposer un problème, tester, corriger. Ça s'apprend.</p>
+            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
+                <p class="text-slate-300 text-sm leading-snug">Au quotidien&nbsp;: raisonner pas à pas, structurer des données simples, déboguer. Pas de maths «&nbsp;niveau prépa&nbsp;».</p>
             </div>
-            <div class="p-6 rounded-[1.5rem] bg-red-950/40 border border-red-900/40">
-                <p class="text-xs uppercase tracking-widest font-bold text-red-400 mb-3">Mythe</p>
-                <p class="font-bold text-lg">"C'est créatif et excitant tout le temps."</p>
-                <p class="text-slate-400 mt-2 text-sm">Une grosse partie du temps : debug, doc, réunions, relecture de code.</p>
+            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
+                <p class="font-bold text-sm sm:text-base">«&nbsp;C’est créatif et fun tout le temps.&nbsp;»</p>
             </div>
-            <div class="p-6 rounded-[1.5rem] bg-emerald-950/40 border border-emerald-900/40">
-                <p class="text-xs uppercase tracking-widest font-bold text-emerald-400 mb-3">Réalité</p>
-                <p class="font-bold text-lg">"La régularité > le talent ponctuel."</p>
-                <p class="text-slate-400 mt-2 text-sm">Travailler chaque jour, même un peu, bat le marathon du week-end.</p>
+            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
+                <p class="text-slate-300 text-sm leading-snug">Beaucoup de debug, de lecture et de corrections. C’est normal, ce n’est pas un échec.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
+                <p class="font-bold text-sm sm:text-base">«&nbsp;Sans bac scientifique, c’est fermé.&nbsp;»</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
+                <p class="text-slate-300 text-sm leading-snug">Des parcours très différents mènent au métier. Ce qui compte, c’est ce que tu construis et à quel rythme.</p>
             </div>
         </div>
+
+        <p class="border-l-4 border-orange-500 pl-5 text-base sm:text-lg font-heading font-bold text-white leading-snug">
+            Ce qui limite le plus souvent, ce n’est pas ton niveau en sciences&nbsp;: c’est le manque de pratique régulière.
+        </p>
     </div>
 </div>
 
@@ -339,7 +351,7 @@
             Fais de la place<br>à ta <span class="gt">passion</span>.
         </h2>
         <p class="mt-8 text-xl text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Tu n'as pas besoin d'un profil "sciences". Ce qu'il te faut, c'est de la <strong class="text-white">passion</strong>, de la <strong class="text-white">régularité</strong>, et un plan simple qui te fait avancer.
+            Tu n'as pas besoin d'un profil "scientifique". Ce qu'il te faut, c'est de la <strong class="text-white">passion</strong>, de la <strong class="text-white">régularité</strong>, et un plan simple qui te fait avancer.
         </p>
         <div class="mt-12 inline-flex items-center gap-4 p-6 rounded-[2rem] bg-white/8 border border-white/10">
             <div class="h-14 w-14 rounded-2xl bg-white/10 flex items-center justify-center text-2xl">👨‍💻</div>
