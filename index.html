@@ -27,7 +27,7 @@
         html, body { height: 100%; margin: 0; }
 
         /* Slide container */
-        .slide { display: none; height: 100vh; width: 100vw; overflow: hidden; position: relative; }
+        .slide { display: none; height: 100vh; height: 100dvh; width: 100vw; overflow-y: auto; overflow-x: hidden; position: relative; }
         .slide.active { display: flex; }
 
         /* Slide transitions */
@@ -46,221 +46,252 @@
         .check-dot.blue { background:#1e40af; }
 
         /* Pill badge */
-        .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:9999px; font-weight:700; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; }
+        .pill { display:inline-flex; flex-wrap:wrap; align-items:center; gap:8px; padding:6px 16px; border-radius:9999px; font-weight:700; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; }
 
         /* Timeline row */
-        .tl-row { display:flex; align-items:center; gap:20px; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+        .tl-row { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); }
         .tl-row:last-child { border-bottom:none; }
-        .tl-num { flex-shrink:0; height:48px; width:48px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-weight:900; font-size:1.25rem; }
+        .tl-num { flex-shrink:0; height:42px; width:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-weight:900; font-size:1.1rem; }
+
+        @media (min-width:640px) {
+            .pill { font-size:.75rem; letter-spacing:.12em; }
+            .tl-row { gap:20px; padding:20px 0; }
+            .tl-num { height:48px; width:48px; border-radius:16px; font-size:1.25rem; }
+        }
+
+        /* Inner slide wrapper — adds breathing room on mobile */
+        .slide-inner { width:100%; padding-top:2.5rem; padding-bottom:5rem; }
+        @media (min-width:640px) { .slide-inner { padding-top:0; padding-bottom:0; } }
+
+        /* ── Slide 10 : fond distinctif ────────────────────────────── */
+        .slide-finale { background: linear-gradient(135deg, #1c0038 0%, #0d0f1e 48%, #220900 100%); }
+
+        /* Orbes flottants (slide 10) */
+        @keyframes floatA { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(32px,-44px) scale(1.12)} 70%{transform:translate(-22px,28px) scale(.92)} }
+        @keyframes floatB { 0%,100%{transform:translate(0,0) scale(1)} 35%{transform:translate(-38px,22px) scale(.9)} 65%{transform:translate(28px,-32px) scale(1.1)} }
+        @keyframes floatC { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(16px,38px) scale(1.08)} }
+
+        .orb { position:absolute; border-radius:50%; filter:blur(72px); pointer-events:none; will-change:transform; }
+        .orb-a { width:min(420px,80vw); height:min(420px,80vw); background:rgba(124,58,237,.28); top:-8%; left:-6%; animation:floatA 13s ease-in-out infinite; }
+        .orb-b { width:min(360px,70vw); height:min(360px,70vw); background:rgba(249,115,22,.2); bottom:-14%; right:-6%; animation:floatB 11s ease-in-out infinite 2s; }
+        .orb-c { width:min(260px,50vw); height:min(260px,50vw); background:rgba(59,130,246,.18); top:25%; right:10%; animation:floatC 15s ease-in-out infinite 1s; }
+
+        /* Carte flottante */
+        @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .float-anim { animation:floatCard 5s ease-in-out infinite; }
+
+        /* Stagger d'entrée des éléments */
+        .stagger-hide { opacity:0; transform:translateY(18px); }
+        .stagger-in   { transition: opacity .48s ease, transform .48s ease; opacity:1; transform:translateY(0); }
     </style>
 </head>
 <body class="bg-slate-950 font-sans" style="overflow:hidden;">
 
 <!-- ─── SLIDE 1 · Couverture ──────────────────────────────────────── -->
-<div class="slide active flex-col items-center justify-center text-white bg-[#0f172a] dots text-center px-8">
+<div class="slide active flex-col items-center justify-center text-white bg-[#0f172a] dots text-center px-5 sm:px-8">
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 70% 55% at 50% 40%, rgba(30,64,175,.35) 0%, transparent 70%);"></div>
-    <div class="relative z-10 max-w-4xl mx-auto">
-        <div class="pill bg-orange-500/20 text-orange-400 mb-10 mx-auto">
-            <span class="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-            Atelier de formation #2 · 02 mai 2026 · Google Meet · 19h–20h30
+    <div class="relative z-10 max-w-4xl mx-auto slide-inner flex flex-col items-center justify-center">
+        <div class="pill bg-orange-500/20 text-orange-400 mb-6 sm:mb-10 mx-auto justify-center">
+            <span class="h-2 w-2 rounded-full bg-orange-500 animate-pulse flex-shrink-0"></span>
+            <span>Atelier de formation #2 · 02 mai 2026 · Google Meet · 19h–20h30</span>
         </div>
-        <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight">
+        <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight">
             Peut-on devenir développeur<br>
             <span class="gt">sans être bon en sciences ?</span>
         </h1>
-        <p class="mt-8 text-xl text-slate-300 font-semibold">Les bases et la réalité du métier</p>
-        <p class="mt-4 text-slate-400 max-w-xl mx-auto leading-relaxed">
+        <p class="mt-5 sm:mt-8 text-base sm:text-xl text-slate-300 font-semibold">Les bases et la réalité du métier</p>
+        <p class="mt-3 sm:mt-4 text-slate-400 max-w-xl mx-auto leading-relaxed text-sm sm:text-base">
             Par <strong class="text-white">Guy-Mosley</strong> · Développeur Web &amp; Mobile · Next.js · Flutter · DevOps
         </p>
     </div>
 </div>
 
 <!-- ─── SLIDE 2 · Sommaire ─────────────────────────────────────────── -->
-<div class="slide flex-col justify-center bg-white text-slate-900 px-10 lg:px-20">
-    <div class="max-w-5xl mx-auto w-full">
-        <p class="pill bg-blue-50 text-blue-700 mb-8">Déroulé de la session</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-12">Sommaire</h2>
-        <div class="grid sm:grid-cols-2 gap-4">
-            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">01</span><div><p class="font-bold">Pourquoi cette question</p><p class="text-slate-500 text-sm">Clichés, maths, profil S…</p></div></div>
-            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">02</span><div><p class="font-bold">Qui je suis</p><p class="text-slate-500 text-sm">Philo → formations & certifs → dev</p></div></div>
-            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">03</span><div><p class="font-bold">Mythes vs réalité du métier</p><p class="text-slate-500 text-sm">Sciences, maths, image du métier</p></div></div>
-            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">04</span><div><p class="font-bold">« Sans être bon en sciences »</p><p class="text-slate-500 text-sm">Ce qui compte vraiment</p></div></div>
-            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">05</span><div><p class="font-bold">Le métier aujourd'hui</p><p class="text-slate-500 text-sm">Next.js · Flutter · DevOps</p></div></div>
-            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">06</span><div><p class="font-bold">Mon chemin &amp; la passion</p><p class="text-slate-500 text-sm">Certifs, projets, persévérance</p></div></div>
-            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-base">07</span><div><p class="font-bold">Feuille de route</p><p class="text-slate-500 text-sm">Direction · bases · régularité</p></div></div>
-            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-base">08</span><div><p class="font-bold">Q&amp;R &amp; clôture</p><p class="text-slate-500 text-sm">Échanges et prochaines étapes</p></div></div>
+<div class="slide flex-col justify-center bg-white text-slate-900 px-5 sm:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-blue-50 text-blue-700 mb-4 sm:mb-8">Déroulé de la session</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 sm:mb-12">Sommaire</h2>
+        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-sm sm:text-base">01</span><div><p class="font-bold text-sm sm:text-base">Pourquoi cette question</p><p class="text-slate-500 text-xs sm:text-sm">Clichés, maths, profil S…</p></div></div>
+            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-sm sm:text-base">02</span><div><p class="font-bold text-sm sm:text-base">Qui je suis</p><p class="text-slate-500 text-xs sm:text-sm">Philo → formations & certifs → dev</p></div></div>
+            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-sm sm:text-base">03</span><div><p class="font-bold text-sm sm:text-base">« Sans être bon en sciences »</p><p class="text-slate-500 text-xs sm:text-sm">Clarifier ce que ça veut dire</p></div></div>
+            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-sm sm:text-base">04</span><div><p class="font-bold text-sm sm:text-base">Mythes vs réalité du métier</p><p class="text-slate-500 text-xs sm:text-sm">Sciences, maths, image du métier</p></div></div>
+            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-sm sm:text-base">05</span><div><p class="font-bold text-sm sm:text-base">Le métier aujourd'hui</p><p class="text-slate-500 text-xs sm:text-sm">Next.js · Flutter · DevOps</p></div></div>
+            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-sm sm:text-base">06</span><div><p class="font-bold text-sm sm:text-base">Mon chemin &amp; la passion</p><p class="text-slate-500 text-xs sm:text-sm">Certifs, projets, persévérance</p></div></div>
+            <div class="check-item"><span class="tl-num bg-blue-50 text-blue-700 text-sm sm:text-base">07</span><div><p class="font-bold text-sm sm:text-base">Feuille de route</p><p class="text-slate-500 text-xs sm:text-sm">Direction · bases · régularité</p></div></div>
+            <div class="check-item"><span class="tl-num bg-orange-50 text-orange-600 text-sm sm:text-base">08</span><div><p class="font-bold text-sm sm:text-base">Q&amp;R &amp; clôture</p><p class="text-slate-500 text-xs sm:text-sm">Échanges et prochaines étapes</p></div></div>
         </div>
     </div>
 </div>
 
 <!-- ─── SLIDE 3 · Pourquoi cette question ─────────────────────────── -->
-<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-10 lg:px-20">
+<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-5 sm:px-10 lg:px-20">
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 10% 50%, rgba(30,64,175,.2) 0%, transparent 60%);"></div>
-    <div class="relative z-10 max-w-5xl mx-auto w-full">
-        <p class="pill bg-blue-800/60 text-blue-300 mb-8">01 · Ouverture</p>
-        <h2 class="font-heading text-4xl lg:text-6xl font-extrabold mb-10">Pourquoi cette question<br>existe encore ?</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
-                <p class="text-3xl mb-4">🏫</p>
-                <p class="font-bold text-lg mb-2">Le mythe scolaire</p>
-                <p class="text-slate-400 leading-relaxed">« Le code, c'est pour les profils scientifiques, les bons en maths. » Une idée héritée du système éducatif, pas du terrain.</p>
+    <div class="relative z-10 max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-blue-800/60 text-blue-300 mb-4 sm:mb-8">01 · Ouverture</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-6xl font-extrabold mb-6 sm:mb-10">Pourquoi cette question<br>existe encore ?</h2>
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
+                <p class="text-3xl mb-3 sm:mb-4">🏫</p>
+                <p class="font-bold text-base sm:text-lg mb-2">Le mythe scolaire</p>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">« Le code, c'est pour les profils scientifiques, les bons en maths. » Une idée héritée du système éducatif, pas du terrain.</p>
             </div>
-            <div class="p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
-                <p class="text-3xl mb-4">😰</p>
-                <p class="font-bold text-lg mb-2">La peur de ne pas être "assez"</p>
-                <p class="text-slate-400 leading-relaxed">Beaucoup abandonnent avant même d'essayer, convaincus d'un manque de "capacité naturelle".</p>
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
+                <p class="text-3xl mb-3 sm:mb-4">😰</p>
+                <p class="font-bold text-base sm:text-lg mb-2">La peur de ne pas être "assez"</p>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">Beaucoup abandonnent avant même d'essayer, convaincus d'un manque de "capacité naturelle".</p>
             </div>
-            <div class="p-7 rounded-[1.75rem] bg-orange-500/10 border border-orange-500/20">
-                <p class="text-3xl mb-4">🎯</p>
-                <p class="font-bold text-lg mb-2 text-orange-400">Ce soir : on parle vrai</p>
-                <p class="text-slate-300 leading-relaxed">Je te partage mon parcours, sans filtre, et des repères simples pour avancer pour de vrai.</p>
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-orange-500/10 border border-orange-500/20">
+                <p class="text-3xl mb-3 sm:mb-4">🎯</p>
+                <p class="font-bold text-base sm:text-lg mb-2 text-orange-400">Ce soir : on parle vrai</p>
+                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">Je te partage mon parcours, sans filtre, et des repères simples pour avancer pour de vrai.</p>
             </div>
         </div>
     </div>
 </div>
 
 <!-- ─── SLIDE 4 · Qui je suis ─────────────────────────────────────── -->
-<div class="slide flex-col justify-center bg-white px-10 lg:px-20">
-    <div class="max-w-5xl mx-auto w-full">
-        <p class="pill bg-orange-50 text-orange-600 mb-8">02 · Mon parcours</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-10">Qui je suis</h2>
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
-            <div class="space-y-5">
+<div class="slide flex-col justify-center bg-white px-5 sm:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-orange-50 text-orange-600 mb-4 sm:mb-8">02 · Mon parcours</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 sm:mb-10">Qui je suis</h2>
+        <div class="grid lg:grid-cols-2 gap-5 sm:gap-8 items-start">
+            <div class="space-y-3 sm:space-y-5">
                 <div class="tl-row" style="padding-top:0;">
                     <div class="tl-num bg-slate-900 text-white">🏛️</div>
                     <div>
-                        <p class="font-bold text-lg">Études en Philosophie</p>
-                        <p class="text-slate-500">Apprendre à structurer une pensée, argumenter, nuancer. Pas de code. Pas de maths avancées.</p>
+                        <p class="font-bold text-base sm:text-lg">Études en Philosophie</p>
+                        <p class="text-slate-500 text-sm sm:text-base">Apprendre à structurer une pensée, argumenter, nuancer. Pas de code. Pas de maths avancées.</p>
                     </div>
                 </div>
                 <div class="tl-row">
                     <div class="tl-num bg-blue-50 text-blue-700">📚</div>
                     <div>
-                        <p class="font-bold text-lg">Formations &amp; certifications</p>
-                        <p class="text-slate-500">Le virage numérique s'est fait par le travail et l'apprentissage autonome, pas par un cursus scientifique.</p>
+                        <p class="font-bold text-base sm:text-lg">Formations &amp; certifications</p>
+                        <p class="text-slate-500 text-sm sm:text-base">Le virage numérique s'est fait par le travail et l'apprentissage autonome, pas par un cursus scientifique.</p>
                     </div>
                 </div>
                 <div class="tl-row">
                     <div class="tl-num bg-orange-50 text-orange-600">💻</div>
                     <div>
-                        <p class="font-bold text-lg">Développeur Web &amp; Mobile</p>
-                        <p class="text-slate-500">Next.js · Flutter · DevOps. Aujourd'hui, c'est mon quotidien sur des projets concrets.</p>
+                        <p class="font-bold text-base sm:text-lg">Développeur Web &amp; Mobile</p>
+                        <p class="text-slate-500 text-sm sm:text-base">Next.js · Flutter · DevOps. Aujourd'hui, c'est mon quotidien sur des projets concrets.</p>
                     </div>
                 </div>
             </div>
-            <div class="p-8 rounded-[2rem] bg-slate-50 border border-slate-100 relative overflow-hidden">
+            <div class="p-6 sm:p-8 rounded-[2rem] bg-slate-50 border border-slate-100 relative overflow-hidden">
                 <div class="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-blue-100 blur-2xl opacity-60"></div>
-                <p class="font-heading text-2xl font-extrabold text-slate-800 leading-tight relative z-10">
-                    « Ce n'est pas le fond de classe qui m'a arrêté. C'est la <span class="gt">passion</span> qui m'a fait avancer. »
+                <p class="font-heading text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight relative z-10">
+                    « Ce n'est pas ma série littéraire qui m'a défini, c'est ma <span class="gt">passion</span> qui m'a construit. »
                 </p>
-                <p class="mt-6 font-bold relative z-10">Guy-Mosley</p>
+                <p class="mt-4 sm:mt-6 font-bold relative z-10">Guy-Mosley</p>
                 <p class="text-slate-500 text-sm relative z-10">Développeur Web &amp; Mobile</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ─── SLIDE 5 · Mythes vs Réalité ───────────────────────────────── -->
-<div class="slide flex-col justify-center bg-[#0f172a] text-white px-10 lg:px-20">
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 45% at 90% 15%, rgba(249,115,22,.12) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 10% 85%, rgba(30,64,175,.15) 0%, transparent 55%);"></div>
-    <div class="relative z-10 max-w-5xl mx-auto w-full">
-        <p class="pill bg-white/10 text-slate-300 mb-5">03 · Mythes vs Réalité</p>
-        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight">Être développeur sans être fort en sciences&nbsp;?</h2>
-        <p class="text-base sm:text-lg text-slate-200 mb-8 max-w-3xl leading-relaxed">
-            <span class="text-white font-semibold">Oui, c’est possible.</span> En web et mobile, tu n’as pas besoin d’un bagage scientifique lourd&nbsp;: tu as besoin de <span class="text-white font-semibold">logique</span>, de <span class="text-white font-semibold">pratique</span> et de <span class="text-white font-semibold">régularité</span>. Le reste s’apprend sur le terrain.
-        </p>
-
-        <div class="grid md:grid-cols-2 gap-3 mb-8">
-            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
-                <p class="font-bold text-sm sm:text-base">«&nbsp;Il faut exceller en maths.&nbsp;»</p>
+<!-- ─── SLIDE 5 · Clarifier la question ───────────────────────────── -->
+<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-5 sm:px-10 lg:px-20">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 55% 45% at 85% 20%, rgba(30,64,175,.18) 0%, transparent 55%);"></div>
+    <div class="relative z-10 max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-blue-800/60 text-blue-300 mb-4 sm:mb-8">03 · Clarifier la question</p>
+        <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-extrabold mb-3 sm:mb-4 text-white">« Sans être bon en sciences »<br><span class="gt">ça veut dire quoi ?</span></h2>
+        <p class="text-slate-400 text-base sm:text-lg mb-6 sm:mb-10 max-w-2xl">On va juste clarifier trois choses, parce que tout n'a pas le même impact.</p>
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
+                <p class="text-3xl mb-3 sm:mb-4">📄</p>
+                <p class="font-bold text-base sm:text-lg mb-2">Niveau scolaire</p>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">Avoir eu de mauvaises notes en maths au lycée, ça ne bloque presque rien dans le dev web/mobile.</p>
             </div>
-            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
-                <p class="text-slate-300 text-sm leading-snug">Au quotidien&nbsp;: raisonner pas à pas, structurer des données simples, déboguer. Pas de maths «&nbsp;niveau prépa&nbsp;».</p>
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-white/5 border border-white/10">
+                <p class="text-3xl mb-3 sm:mb-4">🧠</p>
+                <p class="font-bold text-base sm:text-lg mb-2 text-blue-300">Logique de base</p>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">Si/Alors, boucles, conditions, structure de données. Ça s'apprend en pratiquant, pas en révisant un cours.</p>
             </div>
-            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
-                <p class="font-bold text-sm sm:text-base">«&nbsp;Il faut être bon en sciences pour comprendre l’informatique.&nbsp;»</p>
-            </div>
-            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
-                <p class="text-slate-300 text-sm leading-snug">Un développeur web et mobile manipule surtout du code, des outils, des règles métier et des besoins humains pas des lois physiques ni des expériences de labo.</p>
-            </div>
-            <div class="p-4 rounded-2xl bg-red-950/35 border border-red-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-1">Mythe</p>
-                <p class="font-bold text-sm sm:text-base">«&nbsp;Sans bac scientifique, c’est fermé.&nbsp;»</p>
-            </div>
-            <div class="p-4 rounded-2xl bg-emerald-950/35 border border-emerald-900/35">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 mb-1">Réalité</p>
-                <p class="text-slate-300 text-sm leading-snug">Des parcours très différents mènent au métier. Ce qui compte, c’est ce que tu construis et à quel rythme.</p>
+            <div class="p-5 sm:p-7 rounded-[1.75rem] bg-orange-500/10 border border-orange-500/20">
+                <p class="text-3xl mb-3 sm:mb-4">🔥</p>
+                <p class="font-bold text-base sm:text-lg mb-2 text-orange-400">La passion</p>
+                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">C'est le vrai moteur. Elle donne l'énergie de traverser les bugs, la fatigue et le syndrome de l'imposteur.</p>
             </div>
         </div>
-
-        <p class="border-l-4 border-orange-500 pl-5 text-base sm:text-lg font-heading font-bold text-white leading-snug">
-            Ce qui limite le plus souvent, ce n’est pas ton niveau en sciences&nbsp;: c’est le manque de pratique régulière.
-        </p>
     </div>
 </div>
 
-<!-- ─── SLIDE 6 · Sans être bon en sciences ──────────────────────── -->
-<div class="slide flex-col justify-center bg-white px-10 lg:px-20">
-    <div class="max-w-5xl mx-auto w-full">
-        <p class="pill bg-blue-50 text-blue-700 mb-8">04 · Clarifier la question</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-4">« Sans être bon en sciences »<br><span class="gt">ça veut dire quoi ?</span></h2>
-        <p class="text-slate-500 text-lg mb-10 max-w-2xl">On va juste clarifier trois choses, parce que tout n'a pas le même impact.</p>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-7 rounded-[1.75rem] bg-slate-50 border border-slate-200">
-                <p class="text-3xl mb-4">📄</p>
-                <p class="font-bold text-lg mb-2">Niveau scolaire</p>
-                <p class="text-slate-500">Avoir eu de mauvaises notes en maths au lycée, ça ne bloque presque rien dans le dev web/mobile.</p>
+<!-- ─── SLIDE 6 · Mythes vs Réalité ───────────────────────────────── -->
+<div class="slide flex-col justify-center bg-white text-slate-900 px-5 sm:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-blue-50 text-blue-700 mb-3 sm:mb-5">04 · Mythes vs Réalité</p>
+        <h2 class="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold mb-2 sm:mb-3 leading-tight text-slate-900">Être développeur sans être fort en sciences&nbsp;?</h2>
+        <p class="text-sm sm:text-base lg:text-lg text-slate-600 mb-5 sm:mb-8 max-w-3xl leading-relaxed">
+            <span class="text-slate-900 font-semibold">Oui, c'est possible.</span> En web et mobile, tu n'as pas besoin d'un bagage scientifique lourd&nbsp;: tu as besoin de <span class="text-blue-700 font-semibold">logique</span>, de <span class="text-orange-600 font-semibold">pratique</span> et de <span class="text-slate-900 font-semibold">régularité</span>. Le reste s'apprend sur le terrain.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-2 sm:gap-3 mb-5 sm:mb-8">
+            <div class="p-3 sm:p-4 rounded-2xl bg-red-50 border border-red-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-600 mb-1">Mythe</p>
+                <p class="font-bold text-sm text-slate-900">«&nbsp;Il faut exceller en maths.&nbsp;»</p>
             </div>
-            <div class="p-7 rounded-[1.75rem] bg-blue-50 border border-blue-100">
-                <p class="text-3xl mb-4">🧠</p>
-                <p class="font-bold text-lg mb-2 text-blue-700">Logique de base</p>
-                <p class="text-slate-600">Si/Alors, boucles, conditions, structure de données. Ça s'apprend en pratiquant, pas en révisant un cours.</p>
+            <div class="p-3 sm:p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-700 mb-1">Réalité</p>
+                <p class="text-slate-700 text-xs sm:text-sm leading-snug">Au quotidien&nbsp;: raisonner pas à pas, structurer des données simples, déboguer. Pas de maths «&nbsp;niveau prépa&nbsp;».</p>
             </div>
-            <div class="p-7 rounded-[1.75rem] bg-orange-50 border border-orange-100">
-                <p class="text-3xl mb-4">🔥</p>
-                <p class="font-bold text-lg mb-2 text-orange-600">La passion</p>
-                <p class="text-slate-600">C'est le vrai moteur. Elle donne l'énergie de traverser les bugs, la fatigue et le syndrome de l'imposteur.</p>
+            <div class="p-3 sm:p-4 rounded-2xl bg-red-50 border border-red-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-600 mb-1">Mythe</p>
+                <p class="font-bold text-sm text-slate-900">«&nbsp;Il faut être bon en sciences pour comprendre l'informatique.&nbsp;»</p>
+            </div>
+            <div class="p-3 sm:p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-700 mb-1">Réalité</p>
+                <p class="text-slate-700 text-xs sm:text-sm leading-snug">Un développeur web et mobile manipule surtout du code, des outils, des règles métier et des besoins humains — pas des lois physiques ni des expériences de labo.</p>
+            </div>
+            <div class="p-3 sm:p-4 rounded-2xl bg-red-50 border border-red-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-red-600 mb-1">Mythe</p>
+                <p class="font-bold text-sm text-slate-900">«&nbsp;Sans bac scientifique, c'est fermé.&nbsp;»</p>
+            </div>
+            <div class="p-3 sm:p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-emerald-700 mb-1">Réalité</p>
+                <p class="text-slate-700 text-xs sm:text-sm leading-snug">Des parcours très différents mènent au métier. Ce qui compte, c'est ce que tu construis et à quel rythme.</p>
             </div>
         </div>
+
+        <p class="border-l-4 border-orange-500 pl-4 sm:pl-5 text-sm sm:text-base lg:text-lg font-heading font-bold text-slate-900 leading-snug">
+            Ce qui limite le plus souvent, ce n'est pas ton niveau en sciences&nbsp;: c'est le manque de pratique régulière.
+        </p>
     </div>
 </div>
 
 <!-- ─── SLIDE 7 · Le métier aujourd'hui ──────────────────────────── -->
-<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-10 lg:px-20">
+<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-5 sm:px-10 lg:px-20">
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 55% 45% at 50% 80%, rgba(30,64,175,.25) 0%, transparent 65%);"></div>
-    <div class="relative z-10 max-w-5xl mx-auto w-full">
-        <p class="pill bg-orange-500/20 text-orange-300 mb-8">05 · Le métier aujourd'hui</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-10">3 facettes que je pratique</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-blue-900/50 to-blue-950/80 border border-blue-700/30">
-                <p class="text-4xl mb-5">🌐</p>
+    <div class="relative z-10 max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-orange-500/20 text-orange-300 mb-4 sm:mb-8">05 · Le métier aujourd'hui</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 sm:mb-10">3 facettes que je pratique</h2>
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="p-5 sm:p-8 rounded-[2rem] bg-gradient-to-b from-blue-900/50 to-blue-950/80 border border-blue-700/30">
+                <p class="text-3xl sm:text-4xl mb-3 sm:mb-5">🌐</p>
                 <p class="text-xs uppercase tracking-widest font-bold text-blue-400 mb-2">Web</p>
-                <p class="font-heading text-2xl font-extrabold mb-4">Next.js</p>
-                <ul class="space-y-2 text-slate-300 text-sm">
+                <p class="font-heading text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Next.js</p>
+                <ul class="space-y-2 text-slate-300 text-xs sm:text-sm">
                     <li class="check-item"><span class="check-dot blue"></span>Interfaces &amp; pages web</li>
                     <li class="check-item"><span class="check-dot blue"></span>Produits &amp; applications SaaS</li>
                     <li class="check-item"><span class="check-dot blue"></span>Rendu côté serveur, SEO</li>
                 </ul>
             </div>
-            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-orange-900/40 to-orange-950/70 border border-orange-700/30">
-                <p class="text-4xl mb-5">📱</p>
+            <div class="p-5 sm:p-8 rounded-[2rem] bg-gradient-to-b from-orange-900/40 to-orange-950/70 border border-orange-700/30">
+                <p class="text-3xl sm:text-4xl mb-3 sm:mb-5">📱</p>
                 <p class="text-xs uppercase tracking-widest font-bold text-orange-400 mb-2">Mobile</p>
-                <p class="font-heading text-2xl font-extrabold mb-4">Flutter</p>
-                <ul class="space-y-2 text-slate-300 text-sm">
+                <p class="font-heading text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Flutter</p>
+                <ul class="space-y-2 text-slate-300 text-xs sm:text-sm">
                     <li class="check-item"><span class="check-dot"></span>Applications iOS &amp; Android</li>
                     <li class="check-item"><span class="check-dot"></span>Expérience native fluide</li>
                     <li class="check-item"><span class="check-dot"></span>Un seul code, deux plateformes</li>
                 </ul>
             </div>
-            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-slate-700/40 to-slate-800/70 border border-slate-600/30">
-                <p class="text-4xl mb-5">⚙️</p>
+            <div class="p-5 sm:p-8 rounded-[2rem] bg-gradient-to-b from-slate-700/40 to-slate-800/70 border border-slate-600/30">
+                <p class="text-3xl sm:text-4xl mb-3 sm:mb-5">⚙️</p>
                 <p class="text-xs uppercase tracking-widest font-bold text-slate-300 mb-2">Infrastructure</p>
-                <p class="font-heading text-2xl font-extrabold mb-4">DevOps</p>
-                <ul class="space-y-2 text-slate-300 text-sm">
+                <p class="font-heading text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">DevOps</p>
+                <ul class="space-y-2 text-slate-300 text-xs sm:text-sm">
                     <li class="check-item"><span class="check-dot blue"></span>Déploiement continu</li>
                     <li class="check-item"><span class="check-dot blue"></span>Fiabilité en production</li>
                     <li class="check-item"><span class="check-dot blue"></span>Pipelines &amp; automatisation</li>
@@ -271,31 +302,31 @@
 </div>
 
 <!-- ─── SLIDE 8 · Mon chemin & la passion ────────────────────────── -->
-<div class="slide flex-col justify-center bg-white px-10 lg:px-20">
-    <div class="max-w-5xl mx-auto w-full">
-        <p class="pill bg-orange-50 text-orange-600 mb-8">06 · Mon chemin &amp; la passion</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-10">Ce qui m'a conduit là où je suis</h2>
-        <div class="grid lg:grid-cols-2 gap-8">
-            <div class="space-y-5">
-                <div class="p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
-                    <p class="font-bold text-blue-700 mb-2">✅ Ce que les certifs m'ont apporté</p>
-                    <p class="text-slate-600">Structure d'apprentissage, crédibilité, un cadre pour avancer sans se perdre.</p>
+<div class="slide flex-col justify-center bg-white px-5 sm:px-10 lg:px-20">
+    <div class="max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-orange-50 text-orange-600 mb-4 sm:mb-8">06 · Mon chemin &amp; la passion</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 sm:mb-10">Ce qui m'a conduit là où je suis</h2>
+        <div class="grid lg:grid-cols-2 gap-5 sm:gap-8">
+            <div class="space-y-3 sm:space-y-5">
+                <div class="p-4 sm:p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-blue-700 mb-2 text-sm sm:text-base">Ce que les certifs m'ont apporté</p>
+                    <p class="text-slate-600 text-sm sm:text-base">Structure d'apprentissage, crédibilité, un cadre pour avancer sans se perdre.</p>
                 </div>
-                <div class="p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
-                    <p class="font-bold text-orange-600 mb-2">⚠️ Leurs limites</p>
-                    <p class="text-slate-600">Sans projets concrets, une certification n'est qu'un papier. Le niveau vient en construisant.</p>
+                <div class="p-4 sm:p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-orange-600 mb-2 text-sm sm:text-base">Leurs limites</p>
+                    <p class="text-slate-600 text-sm sm:text-base">Sans projets concrets, une certification n'est qu'un papier. Le niveau vient en construisant.</p>
                 </div>
-                <div class="p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
-                    <p class="font-bold text-slate-800 mb-2">🔥 Le vrai moteur</p>
-                    <p class="text-slate-600">La passion pour construire et résoudre. C'est elle qui m'a tenu sur la durée, même quand c'était compliqué.</p>
+                <div class="p-4 sm:p-6 rounded-[1.5rem] bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 mb-2 text-sm sm:text-base">Le vrai moteur</p>
+                    <p class="text-slate-600 text-sm sm:text-base">La passion pour construire et résoudre. C'est elle qui m'a tenu sur la durée, même quand c'était compliqué.</p>
                 </div>
             </div>
-            <div class="p-8 rounded-[2rem] bg-slate-900 text-white flex flex-col justify-between">
-                <p class="font-heading text-2xl font-extrabold leading-tight">
+            <div class="p-6 sm:p-8 rounded-[2rem] bg-slate-900 text-white flex flex-col justify-between">
+                <p class="font-heading text-xl sm:text-2xl font-extrabold leading-tight">
                     « Un bug n'est pas un échec. C'est une invitation à <span class="gt">affiner sa pensée</span>. »
                 </p>
-                <div class="mt-8 pt-8 border-t border-white/10">
-                    <p class="font-bold text-lg">Guy-Mosley</p>
+                <div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/10">
+                    <p class="font-bold text-base sm:text-lg">Guy-Mosley</p>
                     <p class="text-slate-400 text-sm">Dev Web &amp; Mobile · Philo de formation</p>
                 </div>
             </div>
@@ -304,38 +335,38 @@
 </div>
 
 <!-- ─── SLIDE 9 · Feuille de route ───────────────────────────────── -->
-<div class="slide flex-col justify-center bg-[#0f172a] text-white px-10 lg:px-20">
+<div class="slide flex-col justify-center bg-[#0f172a] text-white dots px-5 sm:px-10 lg:px-20">
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 40% at 15% 60%, rgba(249,115,22,.15) 0%, transparent 55%);"></div>
-    <div class="relative z-10 max-w-5xl mx-auto w-full">
-        <p class="pill bg-orange-500/20 text-orange-300 mb-8">07 · Feuille de route</p>
-        <h2 class="font-heading text-4xl lg:text-5xl font-extrabold mb-10">Par où commencer ?</h2>
-        <div class="space-y-4">
+    <div class="relative z-10 max-w-5xl mx-auto w-full slide-inner">
+        <p class="pill bg-orange-500/20 text-orange-300 mb-4 sm:mb-8">07 · Feuille de route</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 sm:mb-10">Par où commencer ?</h2>
+        <div class="space-y-2 sm:space-y-4">
             <div class="tl-row">
                 <div class="tl-num bg-orange-500 text-white">1</div>
                 <div class="flex-grow">
-                    <p class="font-bold text-lg text-orange-400">Choisir une direction</p>
-                    <p class="text-slate-400">Web, mobile, data… Une voie tenue vaut mieux qu'un éventail de tutos inachevés. La passion aide à ne pas lâcher.</p>
+                    <p class="font-bold text-base sm:text-lg text-orange-400">Choisir une direction</p>
+                    <p class="text-slate-400 text-sm sm:text-base">Web, mobile, data… Une voie tenue vaut mieux qu'un éventail de tutos inachevés. La passion aide à ne pas lâcher.</p>
                 </div>
             </div>
             <div class="tl-row">
                 <div class="tl-num bg-blue-600 text-white">2</div>
                 <div class="flex-grow">
-                    <p class="font-bold text-lg text-blue-400">Poser des bases pratiques</p>
-                    <p class="text-slate-400">Un langage, un outil, un premier projet qui vous ressemble. Pas seulement des certifications sur le papier.</p>
+                    <p class="font-bold text-base sm:text-lg text-blue-400">Poser des bases pratiques</p>
+                    <p class="text-slate-400 text-sm sm:text-base">Un langage, un outil, un premier projet qui vous ressemble. Pas seulement des certifications sur le papier.</p>
                 </div>
             </div>
             <div class="tl-row">
                 <div class="tl-num bg-orange-500 text-white">3</div>
                 <div class="flex-grow">
-                    <p class="font-bold text-lg text-orange-400">Le petit pas quotidien</p>
-                    <p class="text-slate-400">Construire, casser, corriger, chaque jour. La régularité bat le sprint isolé.</p>
+                    <p class="font-bold text-base sm:text-lg text-orange-400">Le petit pas quotidien</p>
+                    <p class="text-slate-400 text-sm sm:text-base">Construire, casser, corriger, chaque jour. La régularité bat le sprint isolé.</p>
                 </div>
             </div>
             <div class="tl-row">
                 <div class="tl-num bg-blue-600 text-white">4</div>
                 <div class="flex-grow">
-                    <p class="font-bold text-lg text-blue-400">S'exposer à la réalité</p>
-                    <p class="text-slate-400">Projets perso, contributions, retours extérieurs. C'est là que le niveau se construit vraiment.</p>
+                    <p class="font-bold text-base sm:text-lg text-blue-400">S'exposer à la réalité</p>
+                    <p class="text-slate-400 text-sm sm:text-base">Projets perso, contributions, retours extérieurs. C'est là que le niveau se construit vraiment.</p>
                 </div>
             </div>
         </div>
@@ -343,61 +374,61 @@
 </div>
 
 <!-- ─── SLIDE 10 · Clôture / Q&R ─────────────────────────────────── -->
-<div class="slide flex-col items-center justify-center bg-[#0f172a] dots text-white text-center px-8">
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 65% 50% at 50% 55%, rgba(249,115,22,.2) 0%, transparent 65%);"></div>
-    <div class="relative z-10 max-w-3xl mx-auto">
-        <p class="pill bg-orange-500/20 text-orange-300 mb-10 mx-auto">08 · Clôture</p>
-        <h2 class="font-heading text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+<div class="slide slide-finale flex-col items-center justify-center dots text-white text-center px-5 sm:px-8">
+    <!-- Orbes animés -->
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <!-- Halo central subtil -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(249,115,22,.12) 0%, transparent 65%);"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto slide-inner flex flex-col items-center justify-center">
+        <p class="pill bg-orange-500/25 text-orange-200 mb-6 sm:mb-10 mx-auto border border-orange-500/20 justify-center">08 · Clôture</p>
+        <h2 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight text-white drop-shadow-sm">
             Fais de la place<br>à ta <span class="gt">passion</span>.
         </h2>
-        <p class="mt-8 text-xl text-slate-300 max-w-xl mx-auto leading-relaxed">
+        <p class="mt-5 sm:mt-8 text-base sm:text-xl text-slate-300 max-w-xl mx-auto leading-relaxed">
             Tu n'as pas besoin d'un profil "scientifique". Ce qu'il te faut, c'est de la <strong class="text-white">passion</strong>, de la <strong class="text-white">régularité</strong>, et un plan simple qui te fait avancer.
         </p>
-        <div class="mt-12 inline-flex items-center gap-4 p-6 rounded-[2rem] bg-white/8 border border-white/10">
-            <div class="h-14 w-14 rounded-2xl bg-white/10 flex items-center justify-center text-2xl">👨‍💻</div>
+        <div class="float-anim mt-8 sm:mt-12 inline-flex items-center gap-4 p-5 sm:p-6 rounded-[2rem] bg-white/10 border border-white/15 backdrop-blur-sm shadow-[0_0_60px_-8px_rgba(249,115,22,.5)]">
+            <div class="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-xl sm:text-2xl">👨‍💻</div>
             <div class="text-left">
-                <p class="font-bold text-xl">Guy-Mosley</p>
-                <p class="text-slate-400 text-sm">Web &amp; Mobile · Next.js · Flutter · DevOps</p>
+                <p class="font-bold text-lg sm:text-xl text-white">Guy-Mosley</p>
+                <p class="text-slate-400 text-xs sm:text-sm">Web &amp; Mobile · Next.js · Flutter · DevOps</p>
             </div>
         </div>
-        <p class="mt-12 text-slate-500 font-bold tracking-widest uppercase text-sm">Questions &amp; Réponses</p>
+        <p class="mt-8 sm:mt-12 text-violet-300/60 font-bold tracking-widest uppercase text-xs sm:text-sm">Questions &amp; Réponses</p>
     </div>
 </div>
 
 <!-- ─── NAV ──────────────────────────────────────────────────────── -->
-<!-- Numéro de slide -->
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
-    <!-- Prev -->
+<div class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 sm:gap-4">
     <button id="prev" onclick="changeSlide(-1)"
-        class="h-12 w-12 rounded-2xl bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition flex items-center justify-center disabled:opacity-25"
+        class="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition flex items-center justify-center disabled:opacity-25"
         aria-label="Précédent" disabled>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
     </button>
 
-    <!-- Compteur -->
-    <div class="px-5 py-2.5 rounded-2xl bg-white/10 border border-white/20 text-white text-sm font-bold backdrop-blur-sm tabular-nums">
+    <div class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl bg-white/10 border border-white/20 text-white text-xs sm:text-sm font-bold backdrop-blur-sm tabular-nums">
         <span id="cur">1</span> / <span id="tot"></span>
     </div>
 
-    <!-- Next -->
     <button id="next" onclick="changeSlide(1)"
-        class="h-12 w-12 rounded-2xl bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition flex items-center justify-center"
+        class="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition flex items-center justify-center"
         aria-label="Suivant">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>
 </div>
 
-<!-- Indicateur de titre (bottom right) -->
-<div id="slideTitle" class="fixed bottom-6 right-6 z-50 px-4 py-2 rounded-xl bg-white/10 border border-white/15 text-white text-xs font-semibold backdrop-blur-sm hidden sm:block"></div>
+<div id="slideTitle" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white/10 border border-white/15 text-white text-xs font-semibold backdrop-blur-sm hidden sm:block"></div>
 
-<!-- Raccourcis clavier (bottom left) -->
-<div class="fixed bottom-6 left-6 z-50 text-white/30 text-xs hidden lg:block">← → ou espace</div>
+<div class="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-50 text-white/30 text-xs hidden lg:block">← → ou espace</div>
 
 <script>
     const slides = document.querySelectorAll('.slide');
     const titles = [
         "Couverture", "Sommaire", "Pourquoi cette question",
-        "Qui je suis", "Mythes vs Réalité", "Sans être bon en sciences",
+        "Qui je suis", "Sans être bon en sciences", "Mythes vs Réalité",
         "Le métier aujourd'hui", "Mon chemin & la passion",
         "Feuille de route", "Clôture & Q/R"
     ];
@@ -412,20 +443,83 @@
         document.getElementById('slideTitle').textContent = titles[cur] || '';
     }
 
+    // Stagger d'entrée des éléments d'une slide
+    function animateSlideIn(slideEl) {
+        const inner = slideEl.querySelector('.slide-inner');
+        if (!inner) return;
+
+        // Sélection des éléments à animer (directs + cartes grille + timeline)
+        const seen = new Set();
+        const els = [];
+        const add = el => { if (!seen.has(el)) { seen.add(el); els.push(el); } };
+
+        inner.querySelectorAll(':scope > *').forEach(add);
+        inner.querySelectorAll('.grid > div, [class*="space-y"] > div, .tl-row').forEach(add);
+
+        // État initial invisible (sans transition pour éviter le flash)
+        els.forEach(el => {
+            el.classList.remove('stagger-in');
+            el.classList.add('stagger-hide');
+        });
+
+        // Double rAF pour s'assurer que le navigateur applique l'état initial
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            els.forEach((el, i) => {
+                setTimeout(() => {
+                    el.classList.add('stagger-in');
+                    el.classList.remove('stagger-hide');
+                }, i * 70);
+            });
+        }));
+    }
+
     function changeSlide(dir) {
         const next = cur + dir;
         if (next < 0 || next >= tot) return;
         slides[cur].classList.remove('active');
+        slides[cur].scrollTop = 0;
         cur = next;
         slides[cur].classList.add('active');
+        animateSlideIn(slides[cur]);
         updateUI();
     }
 
-    // Keyboard
+    // Animation de la première slide au chargement
+    animateSlideIn(slides[0]);
+
+    // Keyboard navigation
     document.addEventListener('keydown', e => {
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ')  { e.preventDefault(); changeSlide(1);  }
         if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                       { e.preventDefault(); changeSlide(-1); }
     });
+
+    // Touch swipe navigation
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let swipeDetected = false;
+
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        swipeDetected = false;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', e => {
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+        if (!swipeDetected && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 12) {
+            swipeDetected = true;
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', e => {
+        if (swipeDetected) {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
+        }
+        swipeDetected = false;
+    }, { passive: true });
 
     updateUI();
 </script>
